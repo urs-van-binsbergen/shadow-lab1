@@ -1,7 +1,9 @@
-(ns lab1.frontend.pages.home)
+(ns lab1.frontend.pages.home
+  (:require
+   [lab1.frontend.components.counter-component :refer [counter-component]]))
 
 (defn page []
-  (println "render home-page")
   [:div
    [:h3 "home-page"]
-   [:div "hello"]])
+   [:div "hello" [counter-component]]
+   [:div "hello" [counter-component]]])

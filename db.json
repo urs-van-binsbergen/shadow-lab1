@@ -1,0 +1,12 @@
+{
+  "zoos": [
+    {
+      "name": "Zoo Zürich",
+      "id": 1
+    },
+    {
+      "name": "Zoo Basel",
+      "id": 2
+    }
+  ]
+}

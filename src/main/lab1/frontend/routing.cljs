@@ -6,13 +6,16 @@
             [reagent.core :as r]
 
             [lab1.frontend.pages.home :as home]
-            [lab1.frontend.pages.login :as login]))
+            [lab1.frontend.pages.login :as login]
+            [lab1.frontend.pages.zoos :as zoos]))
 
 (def routes
   [["/" {:name ::home
          :view #'home/page}]
    ["/login" {:name ::login
-              :view #'login/page}]])
+              :view #'login/page}]
+   ["/zoos" {:name ::zoo-index
+              :view #'zoos/index-page}]])
 
 (defonce routes-state (r/atom nil))
 

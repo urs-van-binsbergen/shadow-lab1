@@ -2,19 +2,23 @@
   (:require [reagent.core :as r]
             ["react-dom/client" :refer [createRoot]]
             [reitit.frontend.easy :as reitit-easy]
-            [lab1.frontend.routing :as routing]))
+            [lab1.frontend.routing :as routing]
+            [lab1.frontend.components.counter-component :refer [counter-component]]))
 
 (defonce root (createRoot (js/document.getElementById "app")))
 
 (defn nav []
-  [:ul
-   [:li [:a {:href (reitit-easy/href ::routing/home)} "Home"]]
-   [:li [:a {:href (reitit-easy/href ::routing/login)} "Login"]]])
+  [:div
+   [:span [:a {:href (reitit-easy/href ::routing/home)} "Home"]]
+   " | "
+   [:span [:a {:href (reitit-easy/href ::routing/login)} "Login"]]
+   " | "
+   [:span [:a {:href (reitit-easy/href ::routing/zoo-index)} "Zoos"]]])
 
 (defn app-view []
   [:div
    [nav]
-   [:h2 "render app-view"]
+   [counter-component]
    (if-let [current-view (-> @routing/routes-state :data :view)]
      [current-view]
      [:div "unknown route"])])

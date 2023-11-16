@@ -13,12 +13,16 @@
    " | "
    [:span [:a {:href (reitit-easy/href ::routing/login)} "Login"]]
    " | "
-   [:span [:a {:href (reitit-easy/href ::routing/zoo-index)} "Zoos"]]])
+   [:span [:a {:href (reitit-easy/href ::routing/zoo-index)} "Zoos"]]
+   " | "
+   [:span [:a {:href (reitit-easy/href ::routing/examples)} "Examples"]]
+   " | "
+   [counter-component]])
 
 (defn app-view []
   [:div
    [nav]
-   [counter-component]
+   [:hr]
    (if-let [current-view (-> @routing/routes-state :data :view)]
      [current-view]
      [:div "unknown route"])])

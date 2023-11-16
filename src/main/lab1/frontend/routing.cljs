@@ -7,7 +7,8 @@
 
             [lab1.frontend.pages.home :as home]
             [lab1.frontend.pages.login :as login]
-            [lab1.frontend.pages.zoos :as zoos]))
+            [lab1.frontend.pages.zoos :as zoos]
+            [lab1.frontend.pages.examples :as examples]))
 
 (def routes
   [["/" {:name ::home
@@ -15,7 +16,9 @@
    ["/login" {:name ::login
               :view #'login/page}]
    ["/zoos" {:name ::zoo-index
-              :view #'zoos/index-page}]])
+              :view #'zoos/index-page}]
+   ["/examples" {:name ::examples
+             :view #'examples/index-page}]])
 
 (defonce routes-state (r/atom nil))
 

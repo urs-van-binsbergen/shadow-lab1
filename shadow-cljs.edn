@@ -6,16 +6,16 @@
 
  :dependencies
  [[reagent "1.2.0"]
-  [metosin/reitit "0.6.0"]
-  [metosin/reitit-spec "0.6.0"]
-  [metosin/reitit-frontend "0.6.0"]
-  [re-frame "1.3.0"]
-  [cljs-http/cljs-http "0.1.46"]]
+  [metosin/reitit "0.7.0-alpha7"]
+  [metosin/reitit-schema "0.7.0-alpha7"]
+  [metosin/reitit-frontend "0.7.0-alpha7"]
+  [cljs-http/cljs-http "0.1.46"]
+  ;; Just for pretty printting the match
+  [fipp "0.6.14"]]
 
  :dev-http {8080 "public"}
 
  :builds
  {:frontend
   {:target :browser
-   :modules
-   {:main {:init-fn lab1.frontend.app/init}}}}}
+   :modules {:main {:init-fn lab1.frontend.app/init}}}}}

@@ -12,7 +12,6 @@
     (go (let [response (<! (http/get "http://localhost:3001/zoos"))]
           (reset! zoos (:body response))))
     (fn []
-      (js/console.log "render" @zoos)
       [:div
        [:h4 "Zoos with cljs-http"]
        [:button {:on-click #(swap! zoos conj {:id 0 :name "Foo"})} "Add"]

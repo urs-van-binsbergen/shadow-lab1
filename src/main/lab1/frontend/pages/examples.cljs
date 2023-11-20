@@ -62,6 +62,7 @@
 (defn index-page []
   (js/console.log "index-page is rendering")
   [:<>
+   [:h2 "control re-renders with cursor, reaction and track"]
    [quux-component]
    [bar-component]
    [number-component]

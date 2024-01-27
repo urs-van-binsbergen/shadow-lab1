@@ -10,9 +10,11 @@
   [metosin/reitit-schema "0.7.0-alpha7"]
   [metosin/reitit-frontend "0.7.0-alpha7"]
   [cljs-http/cljs-http "0.1.46"]
-  [noencore "0.3.7"] ; (transitive dependency of cljs-http; enforce new version to avoid :redef warnings)
-  [fipp "0.6.14"] ; Just for pretty printting the match
-  [re-frame "1.4.2"]]
+  [re-frame "1.4.2"]
+  [binaryage/devtools "1.0.7"]
+
+  ; (transitive dependency of cljs-http; enforce new version to avoid :redef warnings)
+  [noencore "0.3.7"]]
 
  :dev-http {8080 "public"}
 

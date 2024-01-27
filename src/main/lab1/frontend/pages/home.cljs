@@ -1,7 +1,6 @@
 (ns lab1.frontend.pages.home
-  (:require
-   [lab1.frontend.components.counter-component :refer [counter-component]]
-   [reagent.core :as r]))
+  (:require [lab1.frontend.components.counter-component :refer [counter-component]]
+            [reagent.core :as r]))
 
 (defn timer-component []
   (let [seconds-elapsed (r/atom 0)]
@@ -15,4 +14,5 @@
    [:h3 "home-page"]
    [timer-component]
    [:div "hello " [counter-component]]
-   [:div "hello " [counter-component]]])
+   [:div "hello " [counter-component]]
+   [:h4 "Some Routing tests"]])

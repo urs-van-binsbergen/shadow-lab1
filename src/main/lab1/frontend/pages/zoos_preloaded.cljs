@@ -1,8 +1,7 @@
 (ns lab1.frontend.pages.zoos-preloaded
-  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [reagent.core :as r]
             [cljs-http.client :as http]
-            [cljs.core.async :refer [<!]]))
+            [cljs.core.async :refer [go <!]]))
 
 (def zoos (r/atom []))
 

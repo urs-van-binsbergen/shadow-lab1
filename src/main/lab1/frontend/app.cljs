@@ -1,23 +1,24 @@
 (ns lab1.frontend.app
-  (:require [reagent.core :as r]
-            ["react-dom/client" :refer [createRoot]]
-            [reitit.frontend.easy :as rfe]
+  (:require ["react-dom/client" :refer [createRoot]]
+            [lab1.frontend.components.counter-component :refer [counter-component]]
+            [lab1.frontend.route-names :as route-names]
             [lab1.frontend.routing :as routing]
-            [lab1.frontend.components.counter-component :refer [counter-component]]))
+            [reagent.core :as r]
+            [reitit.frontend.easy :as rfe]))
 
 (defonce root (createRoot (js/document.getElementById "app")))
 
 (defn nav []
   [:div
-   [:span [:a {:href (rfe/href ::routing/home)} "Home"]]
+   [:span [:a {:href (rfe/href ::route-names/home)} "Home"]]
    " | "
-   [:span [:a {:href (rfe/href ::routing/login)} "Login"]]
+   [:span [:a {:href (rfe/href ::route-names/login)} "Login"]]
    " | "
-   [:span [:a {:href (rfe/href ::routing/zoo-index)} "Zoos"]]
+   [:span [:a {:href (rfe/href ::route-names/zoo-index)} "Zoos"]]
    " | "
-   [:span [:a {:href (rfe/href ::routing/zoo-preloaded-index)} "Zoos preloaded"]]
+   [:span [:a {:href (rfe/href ::route-names/zoo-preloaded-index)} "Zoos preloaded"]]
    " | "
-   [:span [:a {:href (rfe/href ::routing/examples)} "Examples"]]
+   [:span [:a {:href (rfe/href ::route-names/examples)} "Examples"]]
    " | "
    [counter-component]])
 

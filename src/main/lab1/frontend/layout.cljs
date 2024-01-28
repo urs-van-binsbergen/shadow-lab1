@@ -1,8 +1,7 @@
 (ns lab1.frontend.layout
   (:require [lab1.frontend.route-names :as route-names]
-            [lab1.frontend.routing :as routing]
-            [reitit.frontend.easy :as rfe]
-            [lab1.frontend.state :as state]))
+            [lab1.frontend.state :as state]
+            [reitit.frontend.easy :as rfe]))
 
 (defn nav []
   [:div

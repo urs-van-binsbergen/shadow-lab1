@@ -30,11 +30,16 @@
      [current-view]
      [:div "unknown route"])])
 
-(defn ^:dev/after-load render []
-  (println "render root")
+(defn render []
+  (js/console.log "render root")
   (.render root (r/as-element [app-view])))
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn init []
-  (println "init")
+  (js/console.log "init")
   (routing/start!)
+  (render))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn ^:dev/after-load after-load []
   (render))

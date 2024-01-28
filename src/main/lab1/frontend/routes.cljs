@@ -22,3 +22,4 @@
                        :view #'zoos-preloaded/index-page}]
    ["/examples" {:name ::route-names/examples
                  :view #'examples/index-page}]])
+

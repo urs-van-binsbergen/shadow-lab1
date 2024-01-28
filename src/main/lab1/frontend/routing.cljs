@@ -1,19 +1,18 @@
 (ns lab1.frontend.routing
-  (:require [reagent.core :as r]
+  (:require [lab1.frontend.routes :as routes]
+            [lab1.frontend.state :as state]
             [reitit.coercion.spec :as rcs]
             [reitit.frontend :as rf]
             [reitit.frontend.controllers :as rc]
-            [reitit.frontend.easy :as re]
-            [lab1.frontend.routes :as routes]))
-
-(defonce match* (r/atom nil))
+            [reitit.frontend.easy :as re]))
 
 (defn on-navigate [new-match]
-  (swap! match* (fn [old-match]
-                  (when new-match
-                    (assoc new-match
-                           :controllers
-                           (rc/apply-controllers (:controllers old-match) new-match))))))
+  (swap! state/route-match
+         (fn [old-match]
+           (when new-match
+             (assoc new-match
+                    :controllers
+                    (rc/apply-controllers (:controllers old-match) new-match))))))
 
 (defn start! []
   (re/start!

@@ -1,7 +1,8 @@
 (ns lab1.frontend.layout
   (:require [lab1.frontend.route-names :as route-names]
             [lab1.frontend.routing :as routing]
-            [reitit.frontend.easy :as rfe]))
+            [reitit.frontend.easy :as rfe]
+            [lab1.frontend.state :as state]))
 
 (defn nav []
   [:div
@@ -15,6 +16,6 @@
   [:div
    [nav]
    [:hr]
-   (if-let [current-view (-> @routing/match* :data :view)]
+   (if-let [current-view (-> @state/route-match :data :view)]
      [current-view]
      [:div "unknown route"])])

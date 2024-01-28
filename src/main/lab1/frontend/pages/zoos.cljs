@@ -1,7 +1,10 @@
 (ns lab1.frontend.pages.zoos
   (:require [reagent.core :as r]
             [cljs-http.client :as http]
-            [cljs.core.async :refer [go <!]]))
+            [cljs.core.async :refer [go <!]]
+            [lab1.frontend.state :as state]
+            [reitit.frontend.easy :as rfe]
+            [lab1.frontend.route-names :as route-names]))
 
 
 (defn zoos-cljs-http []
@@ -12,9 +15,9 @@
       [:div
        [:h4 "Zoos with cljs-http"]
        [:button {:on-click #(swap! zoos conj {:id 0 :name "Foo"})} "Add"]
-       (for [zoo @zoos]
-         [:div {:key (zoo :id)}
-          [:a {:href "/zoos/1"} (zoo :id) " " (zoo :name)]])])))
+       (for [{:keys [id name]} @zoos]
+         [:div {:key id}
+          [:a {:href (rfe/href ::route-names/zoo-detail {:id id})} id " " name]])])))
 
 #_(defn zoos-js-fetch []
   (let [zoos-data (r/atom nil)]
@@ -35,8 +38,12 @@
    [:h3 "Zoos"]
    [zoos-cljs-http]])
 
-(defn detail-page [id]
-  (js/console.log "render zoo detail")
-  [:<>
-   [:h3 "Zoo"]
-   [:div "todo" id]])
+(defn detail-page []
+  (let [zoo (r/atom nil)]
+    (fn []
+      (js/console.log "render zoo detail")
+      (let [id (-> @state/route-match :path-params :id)]
+        [:<>
+         [:h3 "Zoo " id]
+         [:a {:href "/zoos/2"} "-> zoo 2"]
+         [:div "todo" (str @zoo)]]))))

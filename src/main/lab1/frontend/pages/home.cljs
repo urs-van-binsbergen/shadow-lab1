@@ -5,7 +5,7 @@
 
 (defn page []
   [:div
-   [:h3 "home-page"]
+   [:h3 "home-pagex"]
    [:div "hello " [counter-component]]
    [:div "hello " [counter-component]]
 

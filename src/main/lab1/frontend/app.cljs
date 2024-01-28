@@ -1,6 +1,7 @@
 (ns lab1.frontend.app
   (:require ["react-dom/client" :refer [createRoot]]
-            [lab1.frontend.components.counter-component :refer [counter-component]]
+            [lab1.frontend.components.counter-component :refer [global-counter-component]]
+            [lab1.frontend.components.timer-component :refer [timer-component]]
             [lab1.frontend.route-names :as route-names]
             [lab1.frontend.routing :as routing]
             [reagent.core :as r]
@@ -17,21 +18,14 @@
    " | "
    [:span [:a {:href (rfe/href ::route-names/zoo-preloaded-index)} "Zoos preloaded"]]
    " | "
-   [:span [:a {:href (rfe/href ::route-names/examples)} "Examples"]]
-   " | "
-   [counter-component]])
-
-(js/console.log "app.cljs is executed")
-(defn lifecycle-test []
-  (js/console.log "lc create")
-  (r/with-let [x (rand)]
-    (js/console.log "lc render " x)
-    [:div "lifecycle checker"]
-    (finally (js/console.log "lc finally" x))))
+   [:span [:a {:href (rfe/href ::route-names/examples)} "Examples"]]])
 
 (defn app-view []
   [:div
-   [nav] [lifecycle-test]
+   [nav]
+   [timer-component]
+   " | "
+   [global-counter-component]
    [:hr]
    (if-let [current-view (-> @routing/match* :data :view)]
      [current-view]

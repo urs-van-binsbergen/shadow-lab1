@@ -1,13 +1,14 @@
 (ns lab1.frontend.pages.home
-  (:require [lab1.frontend.components.counter-component :refer [counter-component]]
+  (:require [lab1.frontend.components.counter-component :refer [counter-component global-counter-component]]
             [lab1.frontend.route-names :as route-names]
             [reitit.frontend.easy :as rfe]))
 
 (defn page []
   [:div
-   [:h3 "home-pagex"]
-   [:div "hello " [counter-component]]
-   [:div "hello " [counter-component]]
+   [:h3 "home-page"]
+   [:div "counter " [counter-component]]
+   [:div "another counter " [counter-component]]
+   [:div "global counter " [global-counter-component]]
 
    [:h4 "Some Routing tests"]
    [:ul

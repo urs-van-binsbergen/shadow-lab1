@@ -18,6 +18,8 @@
 
  :dev-http {8080 "public"}
 
+ ;:log {:level :debug}
+
  :builds
  {:frontend
   {:target :browser

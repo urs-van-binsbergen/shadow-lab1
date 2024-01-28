@@ -23,7 +23,6 @@
    [counter-component]])
 
 (defn app-view []
-  #_(js/console.log @routing/match*)
   [:div
    [nav]
    [:hr]

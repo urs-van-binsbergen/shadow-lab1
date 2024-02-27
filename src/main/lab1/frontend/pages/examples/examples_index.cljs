@@ -1,4 +1,4 @@
-(ns lab1.frontend.pages.examples
+(ns lab1.frontend.pages.examples.examples-index
   (:require
    [reagent.core :as r]))
 
@@ -66,7 +66,7 @@
 (defn inner-component [param]
   [:span "inner " param])
 
-(defn index-page []
+(defn page []
   (js/console.log "index-page is rendering")
   [:<>
    [:h2 "control re-renders with cursor, reaction and track"]

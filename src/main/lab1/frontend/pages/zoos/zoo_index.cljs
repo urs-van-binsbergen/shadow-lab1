@@ -1,4 +1,4 @@
-(ns lab1.frontend.pages.zoo-index
+(ns lab1.frontend.pages.zoos.zoo-index
   (:require [reagent.core :as r]
             [cljs-http.client :as http]
             [cljs.core.async :refer [go <!]]
@@ -36,6 +36,5 @@
          [:button {:on-click #(swap! zoos-data conj {"id" 0 "name" "Foo"})} "Add"]
          (when-let [zoos @zoos-data]
            (for [zoo zoos]
-             [:div {:key (zoo "id")} (zoo "id") " " (zoo "name")]))])))
-  )
+             [:div {:key (zoo "id")} (zoo "id") " " (zoo "name")]))]))))
 

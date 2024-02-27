@@ -1,4 +1,4 @@
-(ns lab1.frontend.pages.zoo-detail
+(ns lab1.frontend.pages.zoos.zoo-detail
   (:require [cljs-http.client :as http]
             [clojure.core.async :refer [<! go]]
             [lab1.frontend.route-names :as route-names]
@@ -23,12 +23,17 @@
             response (<! (http/patch url {:json-params form-values}))]
         (rfe/navigate ::route-names/zoo-detail {:path-params {:id id}}))))
 
+(defn delete-zoo [id]
+  (go (let [url (str "http://localhost:3001/zoos/" id)
+            response (<! (http/delete url))]
+        (rfe/navigate ::route-names/zoo-index))))
+
 (defn zoo-show [{:keys [id name]}]
   [:<>
    [:div "ID " id " / Name " name]
    [:div
     [:button {:type :button :on-click #(rfe/navigate ::route-names/zoo-edit {:path-params {:id id}})} "Edit"]
-    [:button {:type :button :on-click #(js/alert "TODO")} "Delete"]]
+    [:button {:type :button :on-click #(when (js/confirm "really?") (delete-zoo id))} "Delete"]]
    [:div "Test Nav: " [:a {:href "/zoos/1"} "[1]"] " " [:a {:href "/zoos/2"} "[2]"]]])
 
 (defn zoo-form [{:keys [id name]}]

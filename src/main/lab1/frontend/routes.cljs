@@ -1,8 +1,8 @@
 (ns lab1.frontend.routes
-  (:require [lab1.frontend.pages.examples :as examples]
-            [lab1.frontend.pages.home :as home]
-            [lab1.frontend.pages.zoo-detail :as zoo-detail]
-            [lab1.frontend.pages.zoo-index :as zoo-index]
+  (:require [lab1.frontend.pages.examples.examples-index :as examples]
+            [lab1.frontend.pages.home.home :as home]
+            [lab1.frontend.pages.zoos.zoo-detail :as zoo-detail]
+            [lab1.frontend.pages.zoos.zoo-index :as zoo-index]
             [lab1.frontend.route-names :as route-names]))
 
 (def routes
@@ -21,5 +21,5 @@
       {:name ::route-names/zoo-edit
        :view #'zoo-detail/edit-page}]]]
    ["/examples" {:name ::route-names/examples
-                 :view #'examples/index-page}]])
+                 :view #'examples/page}]])
 

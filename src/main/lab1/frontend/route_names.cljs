@@ -5,4 +5,5 @@
   [::home
    ::zoo-index
    ::zoo-detail
+   ::zoo-edit
    ::examples])

@@ -1,4 +1,4 @@
-(ns lab1.frontend.pages.home
+(ns lab1.frontend.pages.home.home
   (:require [lab1.frontend.components.counter :as counter]
             [lab1.frontend.components.timed-counter :as timed-counter]
             [lab1.frontend.route-names :as route-names]

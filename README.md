@@ -9,9 +9,12 @@ Install the DB:
 
 See https://www.npmjs.com/package/json-server/v/0.17.0
 
+```sh
+npm install -g json-server@0.17.4
+```
+
 Start the DB:
 
 ```sh
-npm install -g json-server@0.17.4
 json-server --watch db.json --port 3001 --delay 500
 ```

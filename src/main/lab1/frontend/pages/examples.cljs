@@ -59,6 +59,13 @@
   (js/console.log "number-track-component is rendering")
   [:div "number-track-component " @(r/track number-track)])
 
+(defn container-component [inner]
+  [:div {:style {:border "1px solid pink"}}
+   [inner "hello from container"]])
+
+(defn inner-component [param]
+  [:span "inner " param])
+
 (defn index-page []
   (js/console.log "index-page is rendering")
   [:<>
@@ -71,4 +78,7 @@
    [:button {:on-click update-baz} "update baz"]
    [:button {:on-click update-bar} "update bar"]
    [:button {:on-click plus-1} "+ 1"]
-   [:button {:on-click plus-2} "+ 2"]])
+   [:button {:on-click plus-2} "+ 2"]
+
+   [:h2 "container components"]
+   [container-component inner-component]])

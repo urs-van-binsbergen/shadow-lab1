@@ -12,8 +12,14 @@
    ["/zoos"
     ["" {:name ::route-names/zoo-index
          :view #'zoo-index/page}]
-    ["/:id" {:name ::route-names/zoo-detail
-             :view #'zoo-detail/page}]]
+    ["/:id"
+     [""
+      {:name ::route-names/zoo-detail
+       :view #'zoo-detail/detail-page
+       :params {:foo 11}}]
+     ["/edit"
+      {:name ::route-names/zoo-edit
+       :view #'zoo-detail/edit-page}]]]
    ["/examples" {:name ::route-names/examples
                  :view #'examples/index-page}]])
 

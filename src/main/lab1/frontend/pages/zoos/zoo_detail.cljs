@@ -1,32 +1,47 @@
 (ns lab1.frontend.pages.zoos.zoo-detail
-  (:require [cljs-http.client :as http]
-            [clojure.core.async :refer [<! go]]
+  (:require [clojure.core.async :refer [<! go]]
+            [lab1.frontend.pages.zoos.zoo-api :as zoo-api]
             [lab1.frontend.route-names :as route-names]
             [lab1.frontend.state :as state]
             [reagent.core :as r]
             [reitit.frontend.easy :as rfe]))
 
-; TODO: api error handling
-
 (defn zoo-loader [id inner-component]
-  (let [zoo (r/atom nil)]
-    (go (let [url (str "http://localhost:3001/zoos/" id)
-              response (<! (http/get url))]
-          (reset! zoo (:body response))))
+  (let [zoo (r/atom nil)
+        error (r/atom nil)]
+    (go (let [response (<! (zoo-api/get-zoo id))]
+          (if (response :success)
+            (do
+              (reset! error nil)
+              (reset! zoo (:body response)))
+            (reset! error (str "Error " (:status response))))))
     (fn [id inner-component]
-      (if-let [zoo @zoo]
-        [inner-component zoo]
-        [:div "Loading..."]))))
+      (cond @error
+            [:div [:b {:style {:color "red"}} @error]]
+            @zoo
+            [inner-component @zoo]
+            :else
+            [:div "Loading..."]))))
+
+(def global-error (r/atom nil))
+
+(defn fetch [f on-success]
+  (reset! global-error nil)
+  (go (let [response (<! (f))]
+        (if (response :success)
+          (on-success (response :body))
+          (reset! global-error (str "Error " (:status response)))))))
+
+(defn global-error-component []
+  (when @global-error [:div [:b {:style {:color "red"}} @global-error]]))
 
 (defn update-zoo [id form-values]
-  (go (let [url (str "http://localhost:3001/zoos/" id)
-            response (<! (http/put url {:json-params form-values}))]
-        (rfe/navigate ::route-names/zoo-detail {:path-params {:id id}}))))
+  (fetch #(zoo-api/put-zoo id form-values)
+         #(rfe/navigate ::route-names/zoo-detail {:path-params {:id id}})))
 
 (defn create-zoo [form-values]
-  (go (let [url (str "http://localhost:3001/zoos")
-            response (<! (http/post url {:json-params form-values}))]
-        (rfe/navigate ::route-names/zoo-detail {:path-params {:id (-> response :body :id)}}))))
+  (fetch #(zoo-api/post-zoo form-values)
+         #(rfe/navigate ::route-names/zoo-detail {:path-params {:id (-> % :id)}})))
 
 (defn save-zoo [id form-values]
   (if id
@@ -34,9 +49,8 @@
     (create-zoo form-values)))
 
 (defn delete-zoo [id]
-  (go (let [url (str "http://localhost:3001/zoos/" id)
-            response (<! (http/delete url))]
-        (rfe/navigate ::route-names/zoo-index))))
+  (fetch #(zoo-api/delete-zoo id)
+         #(rfe/navigate ::route-names/zoo-index)))
 
 (defn zoo-show [{:keys [id name]}]
   [:<>
@@ -54,16 +68,18 @@
                            (.preventDefault e)
                            (save-zoo id {:name (-> @form-state :name :value)}))}
        [:div
-        [:label "Name"]
-        [:input {:type :text
-                 :value (-> @form-state :name :value)
-                 :on-change #(swap! form-state (fn [fs] (assoc-in fs [:name :value] (-> % .-target .-value))))}]]
-       [:div
+        [:div [:label {:for :name} "Name"]]
+        [:div [:input {:type :text
+                       :id :name
+                       :value (-> @form-state :name :value)
+                       :on-change #(swap! form-state (fn [fs] (assoc-in fs [:name :value] (-> % .-target .-value))))}]]]
+       [:p
         [:button {:type :submit} "Save"]]])))
 
 (defn detail-page []
   (let [id (-> @state/route-match :path-params :id)]
     [:<>
+     [global-error-component]
      [:h3 "Zoo " id]
      ^{:key id}
      [zoo-loader id zoo-show]]))
@@ -71,11 +87,13 @@
 (defn edit-page []
   (let [id (-> @state/route-match :path-params :id)]
     [:<>
+     [global-error-component]
      [:h3 (str "Edit Zoo" id)]
      ^{:key id}
      [zoo-loader id zoo-form]]))
 
 (defn create-page []
   [:<>
+   [global-error-component]
    [:h3 "Create Zoo"]
    [zoo-form]])

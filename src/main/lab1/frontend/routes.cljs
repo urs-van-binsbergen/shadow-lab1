@@ -15,8 +15,7 @@
     ["/:id"
      [""
       {:name ::route-names/zoo-detail
-       :view #'zoo-detail/detail-page
-       :params {:foo 11}}]
+       :view #'zoo-detail/detail-page}]
      ["/edit"
       {:name ::route-names/zoo-edit
        :view #'zoo-detail/edit-page}]]]

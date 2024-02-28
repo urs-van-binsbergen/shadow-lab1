@@ -20,8 +20,18 @@
 
 (defn update-zoo [id form-values]
   (go (let [url (str "http://localhost:3001/zoos/" id)
-            response (<! (http/patch url {:json-params form-values}))]
+            response (<! (http/put url {:json-params form-values}))]
         (rfe/navigate ::route-names/zoo-detail {:path-params {:id id}}))))
+
+(defn create-zoo [form-values]
+  (go (let [url (str "http://localhost:3001/zoos")
+            response (<! (http/post url {:json-params form-values}))]
+        (rfe/navigate ::route-names/zoo-detail {:path-params {:id (-> response :body :id)}}))))
+
+(defn save-zoo [id form-values]
+  (if (= id "0")
+    (create-zoo form-values)
+    (update-zoo id form-values)))
 
 (defn delete-zoo [id]
   (go (let [url (str "http://localhost:3001/zoos/" id)
@@ -34,14 +44,15 @@
    [:div
     [:button {:type :button :on-click #(rfe/navigate ::route-names/zoo-edit {:path-params {:id id}})} "Edit"]
     [:button {:type :button :on-click #(when (js/confirm "really?") (delete-zoo id))} "Delete"]]
-   [:div "Test Nav: " [:a {:href "/zoos/1"} "[1]"] " " [:a {:href "/zoos/2"} "[2]"]]])
+   [:div "Test Nav: " [:a {:href "/zoos/1"} "[1]"] " " [:a {:href "/zoos/2"} "[2]"]]
+   [:div [:a {:href (rfe/href ::route-names/zoo-index)} "Back to list"]]])
 
 (defn zoo-form [{:keys [id name]}]
   (let [form-state (r/atom {:name {:value name}})]
     (fn []
       [:form {:on-submit (fn [e]
                            (.preventDefault e)
-                           (update-zoo id {:name (-> @form-state :name :value)}))}
+                           (save-zoo id {:name (-> @form-state :name :value)}))}
        [:div
         [:label "Name"]
         [:input {:type :text
@@ -60,6 +71,8 @@
 (defn edit-page []
   (let [id (-> @state/route-match :path-params :id)]
     [:<>
-     [:h3 "Zoo " id]
+     [:h3 (if (= id "0") "Create Zoo" (str "Edit Zoo" id))]
      ^{:key id}
-     [zoo-loader id zoo-form]]))
+     (if (= id "0")
+       [zoo-form {:id "0"}]
+       [zoo-loader id zoo-form])]))

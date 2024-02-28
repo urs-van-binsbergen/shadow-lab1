@@ -13,7 +13,7 @@
     (fn []
       [:div
        [:h4 "Zoos with cljs-http"]
-       [:button {:on-click #(swap! zoos conj {:id 0 :name "Foo"})} "Add"]
+       [:a {:href (rfe/href ::route-names/zoo-edit {:id "0"})} "Add"]
        (for [{:keys [id name]} @zoos]
          [:div {:key id}
           [:a {:href (rfe/href ::route-names/zoo-detail {:id id})} id " " name]])])))

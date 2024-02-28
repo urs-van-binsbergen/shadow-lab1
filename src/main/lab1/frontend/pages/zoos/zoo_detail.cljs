@@ -29,9 +29,9 @@
         (rfe/navigate ::route-names/zoo-detail {:path-params {:id (-> response :body :id)}}))))
 
 (defn save-zoo [id form-values]
-  (if (= id "0")
-    (create-zoo form-values)
-    (update-zoo id form-values)))
+  (if id
+    (update-zoo id form-values)
+    (create-zoo form-values)))
 
 (defn delete-zoo [id]
   (go (let [url (str "http://localhost:3001/zoos/" id)
@@ -71,8 +71,11 @@
 (defn edit-page []
   (let [id (-> @state/route-match :path-params :id)]
     [:<>
-     [:h3 (if (= id "0") "Create Zoo" (str "Edit Zoo" id))]
+     [:h3 (str "Edit Zoo" id)]
      ^{:key id}
-     (if (= id "0")
-       [zoo-form {:id "0"}]
-       [zoo-loader id zoo-form])]))
+     [zoo-loader id zoo-form]]))
+
+(defn create-page []
+  [:<>
+   [:h3 "Create Zoo"]
+   [zoo-form]])

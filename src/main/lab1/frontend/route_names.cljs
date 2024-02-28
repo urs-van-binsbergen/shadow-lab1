@@ -6,4 +6,5 @@
    ::zoo-index
    ::zoo-detail
    ::zoo-edit
+   ::zoo-create
    ::examples])

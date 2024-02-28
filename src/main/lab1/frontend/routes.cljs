@@ -18,7 +18,10 @@
        :view #'zoo-detail/detail-page}]
      ["/edit"
       {:name ::route-names/zoo-edit
-       :view #'zoo-detail/edit-page}]]]
+       :view #'zoo-detail/edit-page}]
+     ["/create"
+      {:name ::route-names/zoo-create
+       :view #'zoo-detail/create-page}]]]
    ["/examples" {:name ::route-names/examples
                  :view #'examples/page}]])
 

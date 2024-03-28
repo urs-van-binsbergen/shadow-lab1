@@ -1,4 +1,5 @@
-export default elefant = "Elefant"
+const elefant = "Elefant"
+export default elefant
 
 export const elefant1 = "Jumbo"
 

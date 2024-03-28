@@ -31,7 +31,7 @@
 (comment
   (defn zoos-with-js-fetch []
     (let [zoos-data (r/atom nil)]
-      (-> (js/fetch "http://localhost:3001/zoos")
+      (-> (js/fetch "http://localhost:3302/zoos")
           (.then #(.json %))
           (.then #(reset! zoos-data (js->clj %))))
       (fn []

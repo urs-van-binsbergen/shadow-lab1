@@ -1,20 +1,23 @@
-```sh
-npx shadow-cljs node-repl
-npx shadow-cljs browser-repl
+# Shadow Lab 1
 
+## Start the app in dev mode
+
+Via Shadow CLJS CLI: 
+
+```sh
 npx shadow-cljs watch frontend
 ```
 
-Install the DB:
+(see also `npx shadow-cljs node-repl`, `npx shadow-cljs browser-repl` (??))
 
-See https://www.npmjs.com/package/json-server/v/0.17.0
+For convenience there is also an NPM Script: 
 
 ```sh
-npm install -g json-server@0.17.4
+npm run shadow-dev
 ```
 
-Start the DB:
+## Start the DB
 
 ```sh
-json-server --watch db.json --port 3001 --delay 500
+npm run json-server
 ```

@@ -1,7 +1,7 @@
 (ns lab1.frontend.pages.zoos.zoo-api
   (:require [cljs-http.client :as http]))
 
-(def base-url "http://localhost:3001/zoos")
+(def base-url "http://localhost:3302/zoos")
 
 (defn get-zoos []
   (http/get base-url))

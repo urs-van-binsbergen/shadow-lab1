@@ -2,7 +2,13 @@
   "name": "shadow-lab1",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "shadow-dev": "npx shadow-cljs watch frontend",
+    "json-server": "json-server --watch db.json --port 3302 --delay 400"
+  },
   "devDependencies": {
+    "json-server": "^0.17.4",
+    "prettier": "3.2.5",
     "shadow-cljs": "2.25.8"
   },
   "dependencies": {
